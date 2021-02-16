@@ -15,7 +15,8 @@ SOURCES += \
     $$PWD/src/database/abstractdao.cpp \
     $$PWD/src/database/databaseconnection.cpp \
     $$PWD/src/settings/itemsettings.cpp \
-    $$PWD/src/settings/settingsdao.cpp
+    $$PWD/src/settings/settingsdao.cpp \
+    src/spotify.cpp
 
 HEADERS += \
     $$PWD/src/authentication/authenticationgui.h \
@@ -25,7 +26,8 @@ HEADERS += \
     $$PWD/src/database/abstractdao.h \
     $$PWD/src/database/databaseconnection.h \
     $$PWD/src/settings/itemsettings.h \
-    $$PWD/src/settings/settingsdao.h
+    $$PWD/src/settings/settingsdao.h \
+    src/spotify.h
 
 # Default rules for deployment.
 unix {

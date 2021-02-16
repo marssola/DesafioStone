@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QObject>
+#include <memory>
+
 #include <QQmlApplicationEngine>
 
 class AuthenticationGui : public QObject
@@ -11,9 +13,7 @@ public:
 
     void openBrowser(const QString &url);
 
-signals:
-
 private:
-    QQmlApplicationEngine engine;
+    std::unique_ptr<QQmlApplicationEngine> engine;
 };
 

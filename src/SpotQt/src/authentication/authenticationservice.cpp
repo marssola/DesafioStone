@@ -28,7 +28,7 @@ AuthenticationService::~AuthenticationService()
 
 bool AuthenticationService::needAuthentication()
 {
-    m_authenticated = (QDateTime::currentDateTime() < m_tokenExpires);
+    m_authenticated = (QDateTime::currentDateTime() < m_tokenExpires) && !m_userToken.isEmpty();
     if (m_authenticated)
         emit authenticated();
     return !m_authenticated;
