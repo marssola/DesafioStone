@@ -17,8 +17,8 @@ public:
     {
         ClientID = 0x1,
         ClientSecret,
-        AuthorizationCode,
-        UserToken
+        UserToken,
+        TokenExpires
     };
 
     int size() const;

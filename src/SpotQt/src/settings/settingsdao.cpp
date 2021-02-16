@@ -78,6 +78,36 @@ void SettingsDao::createTable()
 
     if (!query.exec())
         qCritical() << "Error trying create database" << query.lastError().text();
+
+    const QString insertStr(QStringLiteral("INSERT OR IGNORE INTO %1 (id, field, value) VALUES(:id, :field, :value)").arg(m_table));
+    query.prepare(insertStr);
+
+    QVariantList ids {
+        static_cast<int>(Settings::Type::ClientID),
+        static_cast<int>(Settings::Type::ClientSecret),
+        static_cast<int>(Settings::Type::UserToken),
+        static_cast<int>(Settings::Type::TokenExpires)
+    };
+    QVariantList fields {
+        QStringLiteral("ClientID"),
+        QStringLiteral("ClientSecret"),
+        QStringLiteral("UserToken"),
+        QStringLiteral("TokenExpires")
+    };
+    QVariantList values {
+        QStringLiteral("f8023ea988e548df83fb42b5ce1e1a20"),
+        QStringLiteral("5cf01313067d4391a9a8643add01307a"),
+        QStringLiteral(""),
+        QStringLiteral("")
+    };
+
+    query.bindValue(QStringLiteral(":id"), ids);
+    query.bindValue(QStringLiteral(":field"), fields);
+    query.bindValue(QStringLiteral(":value"), values);
+
+    if (!query.execBatch())
+        qCritical() << "Error trying INSERT registers" << query.lastError().text();
+
     closeConnection();
 }
 

@@ -39,11 +39,6 @@ void SettingsTest::initTestCase()
     clientSecret->setField(QStringLiteral("ClientSecret"));
     clientSecret->setValue(m_clientSecret);
 
-    ItemSettings *authorizationCode = new ItemSettings;
-    authorizationCode->setId(static_cast<int>(Settings::Type::AuthorizationCode));
-    authorizationCode->setField(QStringLiteral("AuthorizationCode"));
-    authorizationCode->setValue("");
-
     ItemSettings *userToken = new ItemSettings;
     userToken->setId(static_cast<int>(Settings::Type::UserToken));
     userToken->setField(QStringLiteral("UserToken"));
@@ -52,7 +47,6 @@ void SettingsTest::initTestCase()
     QMap<int, ItemSettings *> items{};
     items[static_cast<int>(Settings::Type::ClientID)] = clientID;
     items[static_cast<int>(Settings::Type::ClientSecret)] = clientSecret;
-    items[static_cast<int>(Settings::Type::AuthorizationCode)] = authorizationCode;
     items[static_cast<int>(Settings::Type::UserToken)] = userToken;
     m_settingsDao.update(items);
 }

@@ -18,3 +18,7 @@ SOURCES += \
 
 INCLUDEPATH += \
     $$PWD/../../SpotQt/src/
+
+
+RESOURCES += \
+    $$PWD/../../SpotQt/qml.qrc

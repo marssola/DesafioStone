@@ -9,7 +9,6 @@ TEMPLATE = lib
 include($$PWD/../globals.pri)
 
 SOURCES += \
-    $$PWD/src/spotqt.cpp \
     $$PWD/src/authentication/authenticationgui.cpp \
     $$PWD/src/authentication/authenticationservice.cpp \
     $$PWD/src/settings/settings.cpp \
@@ -19,7 +18,6 @@ SOURCES += \
     $$PWD/src/settings/settingsdao.cpp
 
 HEADERS += \
-    $$PWD/src/spotqt.h \
     $$PWD/src/authentication/authenticationgui.h \
     $$PWD/src/authentication/authenticationservice.h \
     $$PWD/src/authentication/authenticationconsts.h \
