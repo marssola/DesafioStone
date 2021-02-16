@@ -1,0 +1,19 @@
+CONFIG += c++17
+QMAKE_CXXFLAGS += -std=c++17
+
+QMAKE_CXXFLAGS_RELEASE -= -O1
+QMAKE_CXXFLAGS_RELEASE -= -O2
+QMAKE_CXXFLAGS_RELEASE *= -O3
+
+CONFIG(debug, debug|release) {
+    DIR_INSTALL=/opt/SpotQtd
+} else {
+    DIR_INSTALL=/opt/SpotQt
+}
+
+DEFINES += ROOT_PATH=\\\"$$DIR_INSTALL\\\"
+DEFINES += TEST=\\\"\\\"
+
+DIR_LIB=$$DIR_INSTALL/lib
+
+DIR_INCLUDE += $$PWD/SpotQt/src
