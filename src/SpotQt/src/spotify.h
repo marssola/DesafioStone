@@ -19,11 +19,12 @@ public:
     void setAuthenticated(bool authenticated);
 
 public slots:
-    void searchMusic(const QString &type);
+    QVariantList searchMusic(const QString &type);
 
 private slots:
     void tokenIsValid();
     QNetworkRequest spotifyRequest(const QString &uri);
+    static QVariantList searchTracks(const QVariantList &tracks);
 
 signals:
     void authenticatedChanged();

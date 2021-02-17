@@ -5,6 +5,7 @@
 #include <QNetworkRequest>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include <QDebug>
 
 Spotify::Spotify(QObject *parent) :
@@ -25,7 +26,6 @@ Spotify::Spotify(QObject *parent) :
     connect(m_authService.get(), &AuthenticationService::authenticationFailed, this, [&]() { setAuthenticated(false); });
 
     tokenIsValid();
-    qDebug() << "Aqui merda";
 }
 
 bool Spotify::authenticated() const
@@ -42,9 +42,8 @@ void Spotify::setAuthenticated(bool authenticated)
     emit authenticatedChanged();
 }
 
-void Spotify::searchMusic(const QString &type)
+QVariantList Spotify::searchMusic(const QString &type)
 {
-    qDebug() << "Search Music" << type;
     tokenIsValid();
 
     QNetworkAccessManager networkManager;
@@ -63,24 +62,46 @@ void Spotify::searchMusic(const QString &type)
         if (parseError.error != QJsonParseError::NoError)
             qCritical() << "Error trying to parse JSON" << parseError.errorString();
 
-        qDebug().noquote() << json.toJson(QJsonDocument::Indented);
+        const auto &tracks = json.object().value(QStringLiteral("tracks")).toObject().toVariantMap()[QStringLiteral("items")].toList();
+        return searchTracks(tracks);
     }  catch (...) {
         qCritical() << "Error trying read message";
     }
+
+    return {};
 }
 
 QNetworkRequest Spotify::spotifyRequest(const QString &uri)
 {
     QUrl url(QStringLiteral("https://api.spotify.com/v1/%1").arg(uri));
-
     QNetworkRequest request(url);
     request.setRawHeader("Authorization", QStringLiteral("Bearer %1").arg(m_authService->getUserToken()).toUtf8());
     return request;
 }
 
+QVariantList Spotify::searchTracks(const QVariantList &tracks)
+{
+    QVariantList list;
+
+    for (const auto &track: tracks) {
+        const auto &map = track.toMap();
+
+        if (map[QStringLiteral("preview_url")].toString().isEmpty())
+            continue;
+
+        list << QVariantMap({
+                                { "name", map[QStringLiteral("name")].toString() },
+                                { "previewUrl", map[QStringLiteral("preview_url")].toString() },
+                                { "artist", map[QStringLiteral("artists")].toList().at(0).toMap()[QStringLiteral("name")].toString() },
+                                { "image", map[QStringLiteral("album")].toMap()[QStringLiteral("images")].toList().last().toMap()[QStringLiteral("url")].toString() }
+                            });
+    }
+
+    return list;
+}
+
 void Spotify::tokenIsValid()
 {
-    qDebug() << "Token is valid";
     if (m_authService->needAuthentication()) {
         m_authService->startAuthenticationService();
         connect(m_authService.get(), &AuthenticationService::authorizationCodeChanged, m_authService.get(), &AuthenticationService::getSpotifyToken);
