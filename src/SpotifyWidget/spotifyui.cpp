@@ -10,25 +10,28 @@ SpotifyUI::SpotifyUI(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SpotifyUI),
     m_spotify(std::make_unique<Spotify>()),
-    m_playlists(std::make_unique<Playlists>()),
-    m_newPlaylist(QStringLiteral(""))
+    m_playlists(std::make_unique<Playlists>())
 {
     ui->setupUi(this);
     ui->buttonSearch->setEnabled(!ui->fieldSearch->text().isEmpty());
     ui->buttonAddMusic->setEnabled(ui->listWidget->count() > 0);
     ui->buttonRemoveMusic->setEnabled(ui->listPlaylist->count() > 0);
     ui->buttonRemovePlaylist->setEnabled(ui->comboPlaylists->currentIndex() > -1);
+    ui->buttonPlayPlaylist->setEnabled(ui->comboPlaylists->currentIndex() > -1);
 
     connect(ui->fieldSearch, &QLineEdit::textChanged, this, [&]() { ui->buttonSearch->setEnabled(!ui->fieldSearch->text().isEmpty()); });
     connect(ui->comboPlaylists, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [&](int index)
     {
         updateListTracksPlaylist(index);
         ui->buttonRemovePlaylist->setEnabled(index > -1);
+        ui->buttonPlayPlaylist->setEnabled(index > -1);
     });
-    connect(m_playlists.get(), &Playlists::playlistsChanged, this, &SpotifyUI::updateComboPlaylist);
 
     connect(ui->listWidget, &QListWidget::currentRowChanged, this, [&](int currentRow) { ui->buttonAddMusic->setEnabled(currentRow > -1); });
     connect(ui->listPlaylist, &QListWidget::currentRowChanged, this, [&](int currentRow) { ui->buttonRemoveMusic->setEnabled(currentRow > -1); });
+
+    connect(m_playlists.get(), &Playlists::playlistsChanged, this, &SpotifyUI::updateComboPlaylist);
+    connect(m_playlists.get(), &Playlists::error, this, [&](const QString &msg) { QMessageBox::critical(this, QStringLiteral("Error"), msg, QMessageBox::Ok); });
 
     m_playlists->loadAll(m_playlists.get());
 }
@@ -56,16 +59,13 @@ void SpotifyUI::on_buttonSearch_clicked()
 
 void SpotifyUI::on_buttonAddMusic_clicked()
 {
-    auto playlistsNames = m_playlists->getPlaylistsName();
-    if (!playlistsNames.contains(m_newPlaylist))
-        playlistsNames.append(m_newPlaylist);
-
     bool ok = false;
+    auto playlistsNames = m_playlists->getPlaylistsName();
     const QString playlistName = QInputDialog::getItem(this,
                                                        QStringLiteral("Playlist"),
                                                        QStringLiteral("Add to Playlist"),
                                                        playlistsNames, -1,
-                                                       false, &ok);
+                                                       true, &ok);
 
     if (!ok)
         return;
@@ -88,28 +88,6 @@ void SpotifyUI::on_buttonAddMusic_clicked()
     track->setImage(choose[QStringLiteral("image")].toString());
 
     m_playlists->addPlaylist(track);
-}
-
-void SpotifyUI::on_buttonNewPlaylist_clicked()
-{
-    bool ok = false;
-    const QString playlistName = QInputDialog::getText(this,
-                                                       QStringLiteral("New Playlist"),
-                                                       QStringLiteral("Playlist Name"),
-                                                       QLineEdit::Normal,
-                                                       QStringLiteral(""), &ok);
-
-    if (!ok)
-        return;
-
-    if (playlistName.isEmpty()) {
-        QMessageBox msg;
-        msg.setText(QStringLiteral("No playlist name was entered"));
-        msg.exec();
-        return;
-    }
-
-    m_newPlaylist = playlistName;
 }
 
 void SpotifyUI::updateComboPlaylist()
@@ -142,7 +120,6 @@ void SpotifyUI::on_buttonRemovePlaylist_clicked()
     default:
         break;
     }
-
 }
 
 void SpotifyUI::on_buttonRemoveMusic_clicked()

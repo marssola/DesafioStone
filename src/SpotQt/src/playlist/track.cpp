@@ -1,5 +1,4 @@
 #include "track.h"
-#include <QDebug>
 
 Track::Track(QObject *parent) :
     QObject(parent),
@@ -10,11 +9,6 @@ Track::Track(QObject *parent) :
     m_previewUrl(QStringLiteral("")),
     m_image(QStringLiteral(""))
 {}
-
-Track::~Track()
-{
-    qDebug() << "Delete Track" << this;
-}
 
 int Track::getId() const
 {

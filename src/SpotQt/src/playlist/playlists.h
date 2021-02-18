@@ -20,7 +20,7 @@ public:
     int getSize();
 
 public slots:
-    void addPlaylist(Track *playlist, bool notifyChanged = true);
+    void addPlaylist(Track *track, bool notifyChanged = true, bool updateDb = true);
     void removePlaylist(const QString &playlistName);
     void removeTrack(int index, const QString &playlistName);
 
@@ -32,6 +32,7 @@ public slots:
     QStringList getPlaylistsName() const;
 
 signals:
+    void error(const QString &msg);
     void playlistsChanged();
 
 private:

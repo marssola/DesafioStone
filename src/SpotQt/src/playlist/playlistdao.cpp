@@ -24,6 +24,68 @@ bool PlaylistDao::loadAll(Playlists *playlists)
     return readData(query, playlists);
 }
 
+bool PlaylistDao::addTrack(Track *track)
+{
+    if (!openConnection()) {
+        qCritical() << "Error trying open connection database" << getConnection().lastError().text();
+        return false;
+    }
+
+    QSqlQuery query(getConnection());
+    query.prepare(QStringLiteral("INSERT OR REPLACE INTO %1 (id, playlistName, track, artist, previewUrl, image) VALUES(:id, :playlistName, :track, :artist, :previewUrl, :image)").arg(m_table));
+    query.bindValue(QStringLiteral(":id"), track->getId());
+    query.bindValue(QStringLiteral(":playlistName"), track->getPlaylistName());
+    query.bindValue(QStringLiteral(":track"), track->getTrack());
+    query.bindValue(QStringLiteral(":artist"), track->getArtist());
+    query.bindValue(QStringLiteral(":previewUrl"), track->getPreviewUrl());
+    query.bindValue(QStringLiteral(":image"), track->getImage());
+
+    const auto exec = query.exec();
+    if (!exec)
+        qCritical() << "Error trying insert new track" << query.lastError().text();
+
+    closeConnection();
+    return exec;
+}
+
+bool PlaylistDao::removeTrack(Track *track)
+{
+    if (!openConnection()) {
+        qCritical() << "Error trying open connection database" << getConnection().lastError().text();
+        return false;
+    }
+
+    QSqlQuery query(getConnection());
+    query.prepare(QStringLiteral("DELETE FROM %1 WHERE id=:id").arg(m_table));
+    query.bindValue(QStringLiteral(":id"), track->getId());
+
+    const auto exec = query.exec();
+    if (!exec)
+        qCritical() << "Error trying remove new track" << query.lastError().text();
+
+    closeConnection();
+    return exec;
+}
+
+bool PlaylistDao::removePlaylist(const QString &playlistName)
+{
+    if (!openConnection()) {
+        qCritical() << "Error trying open connection database" << getConnection().lastError().text();
+        return false;
+    }
+
+    QSqlQuery query(getConnection());
+    query.prepare(QStringLiteral("DELETE FROM %1 WHERE playlistName=:playlistName").arg(m_table));
+    query.bindValue(QStringLiteral(":playlistName"), playlistName);
+
+    const auto exec = query.exec();
+    if (!exec)
+        qCritical() << "Error trying remove new track" << query.lastError().text();
+
+    closeConnection();
+    return exec;
+}
+
 void PlaylistDao::createTable()
 {
     if (!openConnection()) {
@@ -74,7 +136,8 @@ bool PlaylistDao::readData(QSqlQuery &query, Playlists *playlists)
             track->setPreviewUrl(query.value(fieldPreviewUrl).toString());
             track->setImage(query.value(fieldImage).toString());
 
-            playlists->addPlaylist(track, false);
+            playlists->addPlaylist(track, false, false);
+
         }
         emit playlists->playlistsChanged();
     }

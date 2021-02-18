@@ -153,28 +153,16 @@
              <widget class="QComboBox" name="comboPlaylists"/>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonNewPlaylist">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
+             <widget class="QPushButton" name="buttonPlayPlaylist">
               <property name="text">
-               <string>New Playlist</string>
+               <string>Play Playlist</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonRemovePlaylist">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
+             <widget class="QPushButton" name="buttonRemoveMusic">
               <property name="text">
-               <string>Remove Playlist</string>
+               <string>Remove Track</string>
               </property>
              </widget>
             </item>
@@ -192,9 +180,15 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonRemoveMusic">
+             <widget class="QPushButton" name="buttonRemovePlaylist">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
-               <string>Remove Track</string>
+               <string>Remove Playlist</string>
               </property>
              </widget>
             </item>

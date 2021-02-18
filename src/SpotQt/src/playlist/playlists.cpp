@@ -29,11 +29,16 @@ int Playlists::getSize()
     return m_playlists.size();
 }
 
-void Playlists::addPlaylist(Track *playlist, bool notifyChanged)
+void Playlists::addPlaylist(Track *track, bool notifyChanged, bool updateDb)
 {
-    m_playlists.append(playlist);
-    if (playlist->getId() >= m_nextTrackId)
-        m_nextTrackId = playlist->getId() + 1;
+    if (updateDb && !m_playlistDao.addTrack(track)) {
+        emit error(QStringLiteral("There was an error inserting the track into the playlist"));
+        return;
+    }
+
+    m_playlists.append(track);
+    if (track->getId() >= m_nextTrackId)
+        m_nextTrackId = track->getId() + 1;
 
     if (notifyChanged)
         emit playlistsChanged();
@@ -41,21 +46,26 @@ void Playlists::addPlaylist(Track *playlist, bool notifyChanged)
 
 void Playlists::removePlaylist(const QString &playlistName)
 {
-    for (auto it = std::begin(m_playlists); it != std::end(m_playlists); ++it) {
-        if (it.i->t()->getPlaylistName() == playlistName) {
-            m_playlists.removeOne(it.i->t());
-            delete it.i->t();
-        }
+    if (!m_playlistDao.removePlaylist(playlistName)) {
+        emit error(QStringLiteral("There was an error removing playlist"));
+        return;
     }
-    emit playlistsChanged();
+
+    loadAll(this);
 }
 
 void Playlists::removeTrack(int index, const QString &playlistName)
 {
     auto playlist = getPlaylist(playlistName);
-    m_playlists.removeOne(playlist[index]);
+    auto *track = playlist[index];
 
-    delete playlist[index];
+    if (!m_playlistDao.removeTrack(track)) {
+        emit error(QStringLiteral("There was an error removing the track from the playlist"));
+        return;
+    }
+
+    m_playlists.removeOne(track);
+    delete track;
     emit playlistsChanged();
 }
 

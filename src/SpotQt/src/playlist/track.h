@@ -14,7 +14,7 @@ class Track : public QObject
 
 public:
     explicit Track(QObject *parent = nullptr);
-    ~Track();
+    ~Track() = default;
 
     int getId() const;
     QString getPlaylistName() const;

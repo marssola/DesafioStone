@@ -21,7 +21,6 @@ public:
 private slots:
     void on_buttonSearch_clicked();
     void on_buttonAddMusic_clicked();
-    void on_buttonNewPlaylist_clicked();
 
     void updateComboPlaylist();
     void updateListTracksPlaylist(int index);
@@ -35,5 +34,4 @@ private:
     std::unique_ptr<Playlists> m_playlists;
 
     QVariantList m_resultSearch;
-    QString m_newPlaylist;
 };
