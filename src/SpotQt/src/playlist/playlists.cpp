@@ -1,6 +1,7 @@
 #include "playlists.h"
 #include "track.h"
 
+#include <QVariantMap>
 #include <algorithm>
 
 Playlists::Playlists(QObject *parent) :
@@ -88,6 +89,22 @@ QList<Track *> Playlists::getPlaylist(const QString &playlistName)
             playlist.append(item);
     });
     return playlist;
+}
+
+QVariantList Playlists::getPlaylistToQueue(const QString &playlistName)
+{
+    QVariantList list;
+    std::for_each(std::begin(m_playlists), std::end(m_playlists), [&playlistName, &list](Track *item)
+    {
+        if (item->getPlaylistName() == playlistName)
+            list << QVariantMap({
+                                    { "track", item->getTrack() },
+                                    { "artist", item->getArtist() },
+                                    { "previewUrl", item->getPreviewUrl() },
+                                    { "image", item->getImage() },
+                                });
+    });
+    return list;
 }
 
 QStringList Playlists::getPlaylistsName() const

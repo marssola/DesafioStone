@@ -126,7 +126,11 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QListWidget" name="listPlaylist"/>
+          <widget class="QListWidget" name="listPlaylist">
+           <property name="viewMode">
+            <enum>QListView::ListMode</enum>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QWidget" name="playlistFunctions" native="true">
@@ -155,7 +159,7 @@
             <item>
              <widget class="QPushButton" name="buttonPlayPlaylist">
               <property name="text">
-               <string>Play Playlist</string>
+               <string>Add playlist to queue</string>
               </property>
              </widget>
             </item>
@@ -202,6 +206,25 @@
     </widget>
    </item>
    <item>
+    <widget class="QWidget" name="widgetInfoMediaPlayer" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="labelMediaPlayer">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QWidget" name="widgetMediaPlayer" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <property name="leftMargin">
@@ -213,7 +236,7 @@
       <item>
        <widget class="QPushButton" name="buttonPlayPause">
         <property name="text">
-         <string/>
+         <string>Play</string>
         </property>
        </widget>
       </item>
@@ -240,6 +263,9 @@
       </item>
       <item>
        <widget class="QProgressBar" name="progessMusic">
+        <property name="maximum">
+         <number>0</number>
+        </property>
         <property name="value">
          <number>0</number>
         </property>

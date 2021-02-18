@@ -1,4 +1,4 @@
-QT += gui network widgets qml quick webenginecore webengine
+QT += gui network widgets qml quick webengine
 
 TEMPLATE = lib
 

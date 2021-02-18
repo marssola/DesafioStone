@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QVariantList>
 #include "playlistdao.h"
 
 class Track;
@@ -29,6 +30,7 @@ public slots:
     int getNextTrackId() const;
 
     QList<Track *> getPlaylist(const QString &playlistName);
+    QVariantList getPlaylistToQueue(const QString &playlistName);
     QStringList getPlaylistsName() const;
 
 signals:

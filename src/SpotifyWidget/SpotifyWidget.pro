@@ -1,4 +1,4 @@
-QT       += core gui webenginecore webengine sql
+QT       += core gui webengine sql multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

@@ -1,4 +1,4 @@
-QT += gui qml quick webenginecore webengine sql
+QT += gui qml quick webengine sql
 
 CONFIG += console
 CONFIG -= app_bundle
