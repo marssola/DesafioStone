@@ -6,11 +6,11 @@ import QtWebEngine 1.10
 ApplicationWindow {
     id: window
 
-    width: 800
-    height: 600
+    width: 1024
+    height: 768
 
     visible: true
-    flags: Qt.FramelessWindowHint
+    flags: Qt.Dialog | Qt.WindowTitleHint | Qt.CustomizeWindowHint
 
     title: qsTr("Spotify Login")
 

@@ -16,6 +16,9 @@ SOURCES += \
     $$PWD/src/database/databaseconnection.cpp \
     $$PWD/src/settings/itemsettings.cpp \
     $$PWD/src/settings/settingsdao.cpp \
+    src/playlist/playlistdao.cpp \
+    src/playlist/playlists.cpp \
+    src/playlist/track.cpp \
     src/spotify.cpp
 
 HEADERS += \
@@ -27,6 +30,9 @@ HEADERS += \
     $$PWD/src/database/databaseconnection.h \
     $$PWD/src/settings/itemsettings.h \
     $$PWD/src/settings/settingsdao.h \
+    src/playlist/playlistdao.h \
+    src/playlist/playlists.h \
+    src/playlist/track.h \
     src/spotify.h
 
 # Default rules for deployment.

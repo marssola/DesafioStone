@@ -13,11 +13,6 @@ class SettingsDao : public AbstractDao
 public:
     SettingsDao();
 
-    enum class TypeQuery
-    {
-        All = 0x1
-    };
-
     bool loadAll(Settings *settings);
 
     bool update(QMap<int, ItemSettings *> &settings);

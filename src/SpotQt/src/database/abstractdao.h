@@ -8,6 +8,11 @@ public:
     explicit AbstractDao();
     ~AbstractDao();
 
+    enum class TypeQuery
+    {
+        All = 0x1
+    };
+
     bool openConnection();
     bool isOpen();
     void closeConnection();

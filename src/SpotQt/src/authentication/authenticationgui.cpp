@@ -13,6 +13,4 @@ void AuthenticationGui::openBrowser(const QString &url)
     auto listObjects = engine->rootObjects();
     if (!listObjects.isEmpty())
         QMetaObject::invokeMethod(engine->rootObjects().at(0), "loadUrl", Q_ARG(QVariant, url));
-
-    qDebug() << "URL" << url;
 }
