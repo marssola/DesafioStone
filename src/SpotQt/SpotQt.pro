@@ -16,10 +16,10 @@ SOURCES += \
     $$PWD/src/database/databaseconnection.cpp \
     $$PWD/src/settings/itemsettings.cpp \
     $$PWD/src/settings/settingsdao.cpp \
-    src/playlist/playlistdao.cpp \
-    src/playlist/playlists.cpp \
-    src/playlist/track.cpp \
-    src/spotify.cpp
+    $$PWD/src/playlist/playlistdao.cpp \
+    $$PWD/src/playlist/playlists.cpp \
+    $$PWD/src/playlist/track.cpp \
+    $$PWD/src/spotify.cpp
 
 HEADERS += \
     $$PWD/src/authentication/authenticationgui.h \
@@ -30,10 +30,10 @@ HEADERS += \
     $$PWD/src/database/databaseconnection.h \
     $$PWD/src/settings/itemsettings.h \
     $$PWD/src/settings/settingsdao.h \
-    src/playlist/playlistdao.h \
-    src/playlist/playlists.h \
-    src/playlist/track.h \
-    src/spotify.h
+    $$PWD/src/playlist/playlistdao.h \
+    $$PWD/src/playlist/playlists.h \
+    $$PWD/src/playlist/track.h \
+    $$PWD/src/spotify.h
 
 # Default rules for deployment.
 unix {
