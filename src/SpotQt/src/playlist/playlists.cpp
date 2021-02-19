@@ -4,6 +4,9 @@
 #include <QVariantMap>
 #include <algorithm>
 
+#include <QJsonDocument>
+#include <QDebug>
+
 Playlists::Playlists(QObject *parent) :
     QObject(parent),
     m_nextTrackId(1)
@@ -98,12 +101,15 @@ QVariantList Playlists::getPlaylistToQueue(const QString &playlistName)
     {
         if (item->getPlaylistName() == playlistName)
             list << QVariantMap({
+                                    { "playlistName", item->getPlaylistName() },
                                     { "track", item->getTrack() },
                                     { "artist", item->getArtist() },
                                     { "previewUrl", item->getPreviewUrl() },
                                     { "image", item->getImage() },
                                 });
     });
+
+    qDebug().noquote() << QJsonDocument::fromVariant(list).toJson(QJsonDocument::Indented);
     return list;
 }
 

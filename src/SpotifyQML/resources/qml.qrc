@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/page/MainPage.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>qml/page/PlaylistsPage.qml</file>
+        <file>qml/page/DiscoverPage.qml</file>
+        <file>qml/page/QueuePage.qml</file>
+        <file>qml/page/PlaylistsView.qml</file>
+        <file>qml/page/PlaylistView.qml</file>
+    </qresource>
+</RCC>

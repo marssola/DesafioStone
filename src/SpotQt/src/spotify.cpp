@@ -97,6 +97,8 @@ QVariantList Spotify::searchTracks(const QVariantList &tracks)
                             });
     }
 
+    qDebug().noquote() << QJsonDocument::fromVariant(list).toJson(QJsonDocument::Indented);
+
     return list;
 }
 
