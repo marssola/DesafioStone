@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QIcon>
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,10 @@ int main(int argc, char *argv[])
         if ((obj == nullptr) && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
+    QIcon::setThemeSearchPaths({":/icons"});
+    QIcon::setThemeName(QStringLiteral("material-round"));
+
     engine.load(url);
 
     return QGuiApplication::exec();

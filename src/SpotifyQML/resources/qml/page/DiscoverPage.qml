@@ -30,12 +30,10 @@ Page {
                 placeholderText: qsTr("Type to search")
             }
 
-            Button {
-                Layout.fillWidth: true
-
+            ToolButton {
                 highlighted: true
                 flat: true
-                text: qsTr("Search")
+                icon.name: "search"
 
                 onClicked: {
                     pagePlaylists.searchedTracks = [
