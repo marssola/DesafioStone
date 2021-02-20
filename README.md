@@ -2,7 +2,6 @@
 Client básico para o Spotify
 
 ## Instalação - Linux
-debug
 ```bash
 [debug] $ sudo mkdir -p /opt/SpotQtd/db
 [debug] $ sudo chown -R $USER /opt/SpotQtd
