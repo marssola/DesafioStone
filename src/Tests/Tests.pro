@@ -6,5 +6,6 @@ settingsTest.subdir             = SettingsTest
 authenticationTest.depends      = settingsTest
 
 SUBDIRS += \
+    PlaylistTest \
     authenticationTest \
     settingsTest

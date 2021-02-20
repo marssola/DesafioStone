@@ -1,4 +1,4 @@
-QT += gui network widgets qml quick webengine
+QT += gui network widgets qml quick webengine sql
 
 TEMPLATE = lib
 
@@ -36,10 +36,10 @@ HEADERS += \
     $$PWD/src/spotify.h
 
 # Default rules for deployment.
-unix {
+unix:!macx {
     target.path = $$DIR_INSTALL/lib
+    !isEmpty(target.path): INSTALLS += target
 }
-!isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
     qml.qrc

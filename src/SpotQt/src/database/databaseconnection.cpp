@@ -35,7 +35,7 @@ QSqlDatabase DataBaseConnection::create(const QString &connectionName)
     QDir dir;
     if (!dir.exists(ROOT_PATH))
         dir.mkpath(ROOT_PATH);
-    const QString &databaseName(QStringLiteral("%1/db/%2SpotQt.db").arg(ROOT_PATH, TEST));
+    const QString &databaseName(QStringLiteral("%1/db/%2SpotQt.db").arg(ROOT_PATH, RUN_TEST));
 
     QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connectionName);
     db.setDatabaseName(databaseName);

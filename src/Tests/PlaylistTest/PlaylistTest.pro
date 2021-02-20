@@ -8,21 +8,21 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES +=  tst_settingstest.cpp
+SOURCES +=  tst_playlist.cpp
 
 HEADERS += \
     $$PWD/../../SpotQt/src/database/abstractdao.h \
     $$PWD/../../SpotQt/src/database/databaseconnection.h \
-    $$PWD/../../SpotQt/src/settings/settingsdao.h \
-    $$PWD/../../SpotQt/src/settings/itemsettings.h \
-    $$PWD/../../SpotQt/src/settings/settings.h
+    $$PWD/../../SpotQt/src/playlist/track.h \
+    $$PWD/../../SpotQt/src/playlist/playlists.h \
+    $$PWD/../../SpotQt/src/playlist/playlistdao.h
 
 SOURCES += \
     $$PWD/../../SpotQt/src/database/abstractdao.cpp \
     $$PWD/../../SpotQt/src/database/databaseconnection.cpp \
-    $$PWD/../../SpotQt/src/settings/settingsdao.cpp \
-    $$PWD/../../SpotQt/src/settings/itemsettings.cpp \
-    $$PWD/../../SpotQt/src/settings/settings.cpp
+    $$PWD/../../SpotQt/src/playlist/track.cpp \
+    $$PWD/../../SpotQt/src/playlist/playlists.cpp \
+    $$PWD/../../SpotQt/src/playlist/playlistdao.cpp
 
 INCLUDEPATH += \
     $$PWD/../../SpotQt/src

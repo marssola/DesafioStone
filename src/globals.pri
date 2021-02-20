@@ -12,8 +12,8 @@ CONFIG(debug, debug|release) {
 }
 
 DEFINES += ROOT_PATH=\\\"$$DIR_INSTALL\\\"
-DEFINES += TEST=\\\"\\\"
+DEFINES += RUN_TEST=\\\"\\\"
 
-DIR_LIB=$$DIR_INSTALL/lib
+DIR_LIB=$$OUT_PWD/../SpotQt
 
 DIR_INCLUDE += $$PWD/SpotQt/src

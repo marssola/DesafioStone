@@ -23,8 +23,6 @@ private slots:
 
     void loadSettings();
     void totalRegisters();
-
-    void cleanupTestCase();
 };
 
 void SettingsTest::initTestCase()
@@ -60,9 +58,6 @@ void SettingsTest::totalRegisters()
 {
     QVERIFY(m_settings.size() == 4);
 }
-
-void SettingsTest::cleanupTestCase()
-{}
 
 QTEST_APPLESS_MAIN(SettingsTest)
 
