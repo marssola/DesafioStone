@@ -17,4 +17,3 @@ SUBDIRS += \
     plugin \
     qml \
     tests
-
