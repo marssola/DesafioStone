@@ -33,6 +33,20 @@ int Playlists::getSize()
     return m_playlists.size();
 }
 
+Track *Playlists::createTrack(const QVariantMap &track) const
+{
+    auto *newTrack = new Track;
+
+    newTrack->setId(getNextTrackId());
+    newTrack->setTrack(track[QStringLiteral("name")].toString());
+    newTrack->setPlaylistName(track[QStringLiteral("playlistName")].toString());
+    newTrack->setArtist(track[QStringLiteral("artist")].toString());
+    newTrack->setPreviewUrl(track[QStringLiteral("previewUrl")].toString());
+    newTrack->setImage(track[QStringLiteral("image")].toString());
+
+    return newTrack;
+}
+
 void Playlists::addPlaylist(Track *track, bool notifyChanged, bool updateDb)
 {
     if (updateDb && !m_playlistDao.addTrack(track)) {
@@ -94,6 +108,24 @@ QList<Track *> Playlists::getPlaylist(const QString &playlistName)
     return playlist;
 }
 
+QVariantList Playlists::getPlaylistByName(const QString &playlistName) const
+{
+    QVariantList playlist;
+    std::for_each(std::begin(m_playlists), std::end(m_playlists), [&playlistName, &playlist](Track *item)
+    {
+        if (item->getPlaylistName() == playlistName)
+            playlist << QVariantMap({
+                                        { "id", item->getId() },
+                                        { "playlistName", item->getPlaylistName() },
+                                        { "track", item->getTrack() },
+                                        { "artist", item->getArtist() },
+                                        { "previewUrl", item->getPreviewUrl() },
+                                        { "image", item->getImage() },
+                                    });
+    });
+    return playlist;
+}
+
 QVariantList Playlists::getPlaylistToQueue(const QString &playlistName)
 {
     QVariantList list;
@@ -109,7 +141,6 @@ QVariantList Playlists::getPlaylistToQueue(const QString &playlistName)
                                 });
     });
 
-    qDebug().noquote() << QJsonDocument::fromVariant(list).toJson(QJsonDocument::Indented);
     return list;
 }
 
@@ -118,4 +149,15 @@ QStringList Playlists::getPlaylistsName() const
     QStringList names;
     std::for_each(std::begin(m_playlists), std::end(m_playlists), [&names](Track *item) { if (!names.contains(item->getPlaylistName())) names.append(item->getPlaylistName()); });
     return names;
+}
+
+QStringList Playlists::imagesFromPlaylist(const QString playlistName) const
+{
+    QStringList images;
+    std::for_each(std::begin(m_playlists), std::end(m_playlists), [&playlistName, &images](Track *item)
+    {
+        if (item->getPlaylistName() == playlistName && images.indexOf(item->getImage()) < 0)
+            images << item->getImage();
+    });
+    return images;
 }

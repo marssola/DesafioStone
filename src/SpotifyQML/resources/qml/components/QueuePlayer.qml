@@ -5,11 +5,10 @@ import QtQuick.Controls.Material 2.12
 Rectangle {
     id: control
 
-    anchors.bottom: parent.bottom
     width: parent.width
     height: 60
 
-    color: Qt.rgba(Material.accentColor.r, Material.accentColor.g, Material.accentColor.b, 0.3)
+    color: "#99000000"
 
     Row {
         anchors.centerIn: parent

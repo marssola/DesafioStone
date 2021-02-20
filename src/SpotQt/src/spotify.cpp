@@ -82,7 +82,6 @@ QNetworkRequest Spotify::spotifyRequest(const QString &uri)
 QVariantList Spotify::searchTracks(const QVariantList &tracks)
 {
     QVariantList list;
-
     for (const auto &track: tracks) {
         const auto &map = track.toMap();
 
@@ -96,9 +95,6 @@ QVariantList Spotify::searchTracks(const QVariantList &tracks)
                                 { "image", map[QStringLiteral("album")].toMap()[QStringLiteral("images")].toList().last().toMap()[QStringLiteral("url")].toString() }
                             });
     }
-
-    qDebug().noquote() << QJsonDocument::fromVariant(list).toJson(QJsonDocument::Indented);
-
     return list;
 }
 

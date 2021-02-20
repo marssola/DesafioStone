@@ -2,28 +2,40 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
+import "../components"
+import SpotQt 1.0
+
 Page {
     id: page
 
-    footer: TabBar {
-        id: bottomNavigation
-
+    footer: Column {
         width: parent.width
-        currentIndex: 2
+        height: queuePlayer.height +  bottomNavigation.height
 
-        TabButton {
-            text: qsTr("Playlists")
-            icon.name: "playlist-play"
+        QueuePlayer {
+            id: queuePlayer
         }
 
-        TabButton {
-            text: qsTr("Discover")
-            icon.name: "search"
-        }
+        TabBar {
+            id: bottomNavigation
 
-        TabButton {
-            text: qsTr("Queue")
-            icon.name: "queue-music"
+            width: parent.width
+            currentIndex: 1
+
+            TabButton {
+                text: qsTr("Playlists")
+                icon.name: "playlist-play"
+            }
+
+            TabButton {
+                text: qsTr("Discover")
+                icon.name: "search"
+            }
+
+            TabButton {
+                text: qsTr("Queue")
+                icon.name: "queue-music"
+            }
         }
     }
 
@@ -38,5 +50,18 @@ Page {
         DiscoverPage {}
 
         QueuePage {}
+    }
+
+    Spotify {
+        id: spotify
+    }
+
+    Playlists {
+        id: playlists
+
+        property var playlistsName: Array()
+
+        onPlaylistsChanged: playlists.playlistsName = playlists.getPlaylistsName()
+        Component.onCompleted: playlists.loadAll(playlists)
     }
 }

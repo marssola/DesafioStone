@@ -10,7 +10,7 @@ Page {
 
     onPlaylistsNameChanged: {
         pagePlaylists.header.title = page.playlistsName
-        page.playlist = getPlaylist(page.playlistsName)
+        page.playlist = playlists.getPlaylistByName(page.playlistsName)
     }
 
     ListView {
@@ -92,9 +92,7 @@ Page {
                     text: qsTr("Do you really want to remove this track")
                 }
 
-                onAccepted: {
-                    console.log("Remover esta melda")
-                }
+                onAccepted: playlists.removeTrack(index, page.playlistsName)
 
                 onClosed: item.swipe.close()
             }
@@ -115,6 +113,15 @@ Page {
 
         onClicked: {
             console.log("Add to queue")
+            console.log(JSON.stringify(page.playlist, null, 4))
+        }
+    }
+
+    Connections {
+        target: playlists
+
+        function onPlaylistsChanged() {
+            page.playlist = playlists.getPlaylistByName(page.playlistsName)
         }
     }
 }

@@ -16,7 +16,24 @@ ApplicationWindow {
 
     WebEngineView {
         id: webView
+
+        z: 1
         anchors.fill: parent
+    }
+
+    Button {
+        z: 10
+        visible: webView.canGoBack
+
+        text: qsTr("Back")
+
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.margins: 10
+
+        highlighted: true
+
+        onClicked: webView.goBack()
     }
 
     function loadUrl(url) {

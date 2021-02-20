@@ -10,14 +10,14 @@ Page {
     id: page
 
     Label {
-        visible: pagePlaylists.playlistsName.length === 0
+        visible: playlists.playlistsName.length === 0
 
         text: qsTr("Nothing")
         anchors.centerIn: parent
     }
 
     Flickable {
-        visible: pagePlaylists.playlistsName.length > 0
+        visible: playlists.playlistsName.length > 0
 
         anchors.fill: parent
         contentHeight: flowPlaylist.implicitHeight
@@ -35,7 +35,7 @@ Page {
             rightPadding: rightPadding
 
             Repeater {
-                model: pagePlaylists.playlistsName
+                model: playlists.playlistsName
 
                 delegate: ItemDelegate {
                     id: delegate
@@ -72,7 +72,7 @@ Page {
                             Repeater {
                                 id: repeaterImages
 
-                                model: extracImagesFromPlaylist(modelData)
+                                model: playlists.imagesFromPlaylist(modelData)
                                 property int totalImages: model.length
 
                                 Image {
