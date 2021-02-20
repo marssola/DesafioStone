@@ -1,4 +1,4 @@
-QT += quick
+QT += quick multimedia
 
 include($$PWD/../globals.pri)
 

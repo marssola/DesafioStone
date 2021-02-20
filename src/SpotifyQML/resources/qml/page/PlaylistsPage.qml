@@ -72,20 +72,4 @@ Page {
             playlists.removePlaylist(pagePlaylists.header.title)
         }
     }
-
-    function extracImagesFromPlaylist(playlistsName) {
-        return pagePlaylists.tracks.filter(function (item) {
-            return item.playlistName === playlistsName
-        }).map(function(item) {
-            return item.image
-        }).filter(function (item, pos, self) {
-            return self.indexOf(item) === pos
-        }).slice(0, 4)
-    }
-
-    function getPlaylist(playlistsName) {
-        return pagePlaylists.tracks.filter(function (item) {
-            return item.playlistName === playlistsName
-        });
-    }
 }

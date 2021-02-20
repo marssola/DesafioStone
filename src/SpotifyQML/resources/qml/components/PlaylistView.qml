@@ -14,7 +14,7 @@ Page {
     }
 
     ListView {
-        id: listSearchedTracks
+        id: tracks
 
         anchors.fill: parent
         spacing: 5
@@ -23,7 +23,7 @@ Page {
         model: page.playlist
         delegate: SwipeDelegate {
             id: item
-            width: listSearchedTracks.width
+            width: tracks.width
             height: 60
 
             contentItem: RowLayout {
@@ -112,8 +112,15 @@ Page {
         anchors.bottomMargin: 30
 
         onClicked: {
-            console.log("Add to queue")
-            console.log(JSON.stringify(page.playlist, null, 4))
+            mediaPlayer.stop()
+            mediaPlayer.playlist.currentIndex = -1
+            mediaPlayer.queue = page.playlist
+            mediaPlayer.playlist.clear()
+
+            for (let k in page.playlist)
+                mediaPlayer.playlist.addItem(page.playlist[k].previewUrl)
+
+            mediaPlayer.play()
         }
     }
 

@@ -16,31 +16,44 @@ Rectangle {
 
         ToolButton {
             id: buttonPlayPause
-            icon.name: "play-arrow"
+            icon.name: mediaPlayer.playing ? "pause" : "play-arrow"
+            onClicked: mediaPlayer.playing ? mediaPlayer.pause() : mediaPlayer.play()
         }
 
         ToolButton {
             icon.name: "stop"
+            onClicked: mediaPlayer.stop()
         }
 
         ToolButton {
             icon.name: "skip-previous"
+            onClicked: mediaPlayer.playlist.previous()
         }
 
         ToolButton {
             icon.name: "skip-next"
+            onClicked: mediaPlayer.playlist.next()
         }
 
         Label {
             width: control.width - ((buttonPlayPause.width + parent.spacing) * 4)
             height: parent.height
 
-            text: "Artist - Music"
+            text: mediaPlayer.trackPlaying
 
             elide: Label.ElideRight
             wrapMode: Label.WrapAnywhere
             horizontalAlignment: Label.AlignHCenter
             verticalAlignment: Label.AlignVCenter
+
+            ProgressBar {
+                width: parent.width
+                anchors.bottom: parent.bottom
+
+                from: 0
+                to: mediaPlayer.duration
+                value: mediaPlayer.position
+            }
         }
     }
 }
