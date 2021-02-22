@@ -1,4 +1,8 @@
-QT       += core gui webengine sql multimedia
+QT       += core gui sql multimedia qml
+
+unix {
+    QT += webengine
+}
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,13 +24,13 @@ HEADERS += \
 INCLUDEPATH += $$DIR_INCLUDE
 
 LIBS += -L$${DIR_LIB} -lSpotQt
+message($$DIR_LIB)
 
 # Default rules for deployment.
-unix {
+!macx {
     target.path = $$DIR_INSTALL/bin
+    !isEmpty(target.path): INSTALLS += target
 }
-
-!isEmpty(target.path): INSTALLS += target
 
 FORMS += \
     spotifyui.ui

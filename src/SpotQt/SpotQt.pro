@@ -1,6 +1,13 @@
-QT += gui network widgets qml quick webengine sql
+QT += gui network widgets qml quick sql
+
+unix {
+    QT += webengine
+}
 
 TEMPLATE = lib
+win32-msvc {
+    CONFIG += dll staticlib
+}
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -35,11 +42,10 @@ HEADERS += \
     $$PWD/src/playlist/track.h \
     $$PWD/src/spotify.h
 
-# Default rules for deployment.
-unix:!macx {
+RESOURCES += \
+    $$PWD/qml.qrc
+
+!macx {
     target.path = $$DIR_INSTALL/lib
     !isEmpty(target.path): INSTALLS += target
 }
-
-RESOURCES += \
-    qml.qrc

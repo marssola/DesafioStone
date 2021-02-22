@@ -84,9 +84,10 @@ void AuthenticationService::getSpotifyToken()
 
     try {
         QJsonParseError parseError{};
-        auto json = QJsonDocument::fromJson(reply->readAll(), &parseError);
+        const auto data = reply->readAll();
+        auto json = QJsonDocument::fromJson(data, &parseError);
         if (parseError.error != QJsonParseError::NoError)
-            qCritical() << "Error trying to parse JSON" << parseError.errorString();
+            qCritical() << "Error trying to parse JSON" << parseError.errorString() << data;
 
         const auto &obj = json.object();
         const auto fieldAccessToken(QStringLiteral("access_token"));

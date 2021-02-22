@@ -32,10 +32,11 @@ void DataBaseConnection::close(const QString &connectionName)
 
 QSqlDatabase DataBaseConnection::create(const QString &connectionName)
 {
+    const QString dbPath(QStringLiteral("%1/db").arg(ROOT_PATH));
     QDir dir;
-    if (!dir.exists(ROOT_PATH))
-        dir.mkpath(ROOT_PATH);
-    const QString &databaseName(QStringLiteral("%1/db/%2SpotQt.db").arg(ROOT_PATH, RUN_TEST));
+    if (!dir.exists(dbPath))
+        dir.mkpath(dbPath);
+    const QString &databaseName(QStringLiteral("%1/%2SpotQt.db").arg(dbPath, RUN_TEST));
 
     QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connectionName);
     db.setDatabaseName(databaseName);

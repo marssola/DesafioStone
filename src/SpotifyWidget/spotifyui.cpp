@@ -32,9 +32,6 @@ SpotifyUI::SpotifyUI(QWidget *parent) :
     connect(ui->listWidget, &QListWidget::currentRowChanged, this, [&](int currentRow) { ui->buttonAddMusic->setEnabled(currentRow > -1); });
     connect(ui->listPlaylist, &QListWidget::currentRowChanged, this, [&](int currentRow) { ui->buttonRemoveMusic->setEnabled(currentRow > -1); });
 
-    connect(m_playlists.get(), &Playlists::playlistsChanged, this, &SpotifyUI::updateComboPlaylist);
-    connect(m_playlists.get(), &Playlists::error, this, [&](const QString &msg) { QMessageBox::critical(this, QStringLiteral("Error"), msg, QMessageBox::Ok); });
-
     connect(m_playlist.get(), &QMediaPlaylist::currentIndexChanged, this, &SpotifyUI::configurePlayer);
     connect(m_mediaPlayer.get(), &QMediaPlayer::positionChanged, ui->progessMusic, &QProgressBar::setValue);
     connect(m_mediaPlayer.get(), &QMediaPlayer::durationChanged, ui->progessMusic, &QProgressBar::setMaximum);
@@ -46,6 +43,9 @@ SpotifyUI::SpotifyUI(QWidget *parent) :
         case QMediaPlayer::PausedState: ui->buttonPlayPause->setText(QStringLiteral("Play")); break;
         }
     });
+
+    connect(m_playlists.get(), &Playlists::playlistsChanged, this, &SpotifyUI::updateComboPlaylist);
+    connect(m_playlists.get(), &Playlists::error, this, [&](const QString &msg) { QMessageBox::critical(this, QStringLiteral("Error"), msg, QMessageBox::Ok); });
 
     configurePlayer();
     m_playlists->loadAll(m_playlists.get());

@@ -1,5 +1,9 @@
 QT += testlib
-QT += gui network widgets qml quick webengine
+QT += gui network widgets qml quick
+
+unix {
+    QT += webengine
+}
 
 CONFIG += qt warn_on depend_includepath testcase
 
