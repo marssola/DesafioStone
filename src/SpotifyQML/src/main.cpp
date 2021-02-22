@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     QIcon::setThemeSearchPaths({":/icons"});
     QIcon::setThemeName(QStringLiteral("material-round"));
 
+    engine.addImportPath(QStringLiteral("../SpotQt-plugin"));
     engine.addImportPath(QStringLiteral("%1/plugins").arg(ROOT_PATH));
     engine.load(url);
 

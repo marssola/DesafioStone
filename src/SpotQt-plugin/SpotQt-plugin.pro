@@ -26,7 +26,7 @@ DISTFILES = qmldir
 }
 
 qmldir.files = qmldir
-unix {
+unix:!macx {
     installPath = $$DIR_INSTALL/plugins/$$replace(uri, \., /)
     qmldir.path = $$installPath
     target.path = $$installPath
@@ -34,5 +34,7 @@ unix {
 }
 
 INCLUDEPATH += $$DIR_INCLUDE
+
+#DESTDIR += $$OUT_PWD/../SpotifyQML/SpotQt
 
 LIBS += -L$${DIR_LIB} -lSpotQt
