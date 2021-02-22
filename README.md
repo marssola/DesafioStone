@@ -1,6 +1,12 @@
 # DesafioStone
 Client básico para o Spotify
 
+#### Adicionar no QtCreator o passo para instalação
+Menu lateral Projects -> Versão do Kit -> Build -> Build Stepes -> Add Build Step -> Make
+```
+Make arguments: install
+```
+
 #### Adicionar no QtCreator váriavel de ambiente para execução do plugin para o QML
 Menu lateral Projects -> Versão do Kit -> Run -> Environment.
 
